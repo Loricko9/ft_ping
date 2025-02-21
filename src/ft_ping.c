@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/20 13:55:22 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:41:09 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac < 2)
 	{
-		printf("Usage: %s <hostname>\n", av[0]);
+		printf("ping: missing host operand\nTry \'ping -?\' or \'ping --help\'\n");
 		exit(1);
 	}
+	if (check_flags(ac, av))
+		printf("coucou");
 }

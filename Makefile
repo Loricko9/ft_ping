@@ -1,4 +1,4 @@
-FILES 	=	ft_ping.c
+FILES 	=	ft_ping.c check_flags.c
 
 NAME	=	ft_ping
 CC		=	cc
