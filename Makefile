@@ -1,4 +1,4 @@
-FILES 	=	ft_ping.c check_flags.c
+FILES 	=	ft_ping.c check_flags.c package.c utils.c
 
 NAME	=	ft_ping
 CC		=	cc
