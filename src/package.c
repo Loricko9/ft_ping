@@ -6,13 +6,32 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/21 17:25:19 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:26:17 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
-bool	check_ip(struct sockaddr_in *ip_addr, char *address, struct icmp *head)
+unsigned short checksum(void *pckg, size_t len)
+{
+	unsigned short	*ptr;
+	unsigned int	sum;
+
+	ptr = pckg;
+	sum = 0;
+	while (len > 1)
+	{
+		sum += *(ptr++);
+		len -= 2; 
+	}
+	if (len == 1)
+		sum += *(unsigned char *)ptr;
+	sum = (sum >> 16) + (sum & 0xFFFF);
+	sum += (sum >> 16);
+	return ((unsigned short)~sum);
+}
+
+bool	check_ip(struct sockaddr_in *ip_addr, char *address, struct icmp *icmp)
 {
 	memset(ip_addr, 0, sizeof(*ip_addr));
 	ip_addr->sin_family = AF_INET;
@@ -21,10 +40,11 @@ bool	check_ip(struct sockaddr_in *ip_addr, char *address, struct icmp *head)
 		printf("ping: unknown host\n");
 		return (true);
 	}
-	memset(head, 0, sizeof(*head));
-	head->icmp_type = ICMP_ECHO;
-	head->icmp_code = 0;
-	head->icmp_id = getpid();
-	head->icmp_seq = 1;
-	//head->icmp_cksum = 
+	memset(icmp, 0, sizeof(*icmp));
+	icmp->icmp_type = ICMP_ECHO;
+	icmp->icmp_code = 0;
+	icmp->icmp_id = getpid();
+	icmp->icmp_seq = 1;
+	icmp->icmp_cksum = checksum(icmp, sizeof(*icmp));
+	return (false);
 }

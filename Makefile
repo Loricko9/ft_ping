@@ -2,7 +2,7 @@ FILES 	=	ft_ping.c check_flags.c package.c utils.c
 
 NAME	=	ft_ping
 CC		=	cc
-CFLAGS	+=	-W -Wall -Wextra -Werror
+CFLAGS	+=	-W -Wall -Wextra -Werror -g
 RM		=	rm -rf
 INCLUDE	=	-I include/
 

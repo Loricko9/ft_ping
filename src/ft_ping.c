@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/21 17:24:40 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:43:52 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 bool	g_stop;
 
-void	start_ping(char *host)
+void	start_ping(char *host, int socketfd)
 {
-	int socketfd;
 	struct sockaddr_in	dest_ip;
-	struct icmp			header_pkg;
+	struct icmp			pkg_icmp;
+	//char				pkg[PACKET_SIZE];
 
-	socketfd = init_socket();
-	if (check_ip(&dest_ip, host, &header_pkg))
-		return ;
-	
+	if (check_ip(&dest_ip, host, &pkg_icmp))
+		return (ft_free(&dest_ip, NULL, socketfd));
+	printf("ok\n");
 }
 
 int main(int ac, char **av)
@@ -43,6 +42,6 @@ int main(int ac, char **av)
 	{
 		g_stop = true;
 		if (av[i][0] != '-')
-			start_ping(av[i]);
+			start_ping(av[i], init_socket());
 	}
 }
