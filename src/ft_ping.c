@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/23 13:43:52 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:08:59 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,26 @@ void	start_ping(char *host, int socketfd)
 {
 	struct sockaddr_in	dest_ip;
 	struct icmp			pkg_icmp;
-	//char				pkg[PACKET_SIZE];
+	char				pkg[PACKET_SIZE];
+	int					i;
 
-	if (check_ip(&dest_ip, host, &pkg_icmp))
-		return (ft_free(&dest_ip, NULL, socketfd));
-	printf("ok\n");
+	if (check_ip(&dest_ip, host))
+		return (ft_free(socketfd));
+	printf("host : %s\n", host);
+	if (init_signal())
+		return (ft_free(socketfd));
+	i = 0;
+	while (g_stop)
+	{
+		create_icmp(&pkg_icmp, i);
+		memcpy(pkg, &pkg_icmp, sizeof(pkg_icmp));
+		if (loop_pkg(socketfd, &dest_ip, sizeof(pkg_icmp), pkg))
+			return (ft_free(socketfd));
+		i++;
+		sleep(1);
+	}
+	printf("stop\n");
+	ft_free(socketfd);
 }
 
 int main(int ac, char **av)
@@ -36,7 +51,6 @@ int main(int ac, char **av)
 	}
 	if (check_flags(ac, av))
 		printf("coucou");
-	init_signal();
 	i = 0;
 	while (++i < ac)
 	{

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/23 13:45:14 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:17:10 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,20 @@ extern bool	g_stop;
 # define PACKET_SIZE 64
 
 /*check_flags.c*/
-bool	check_flags(int ac, char **av);
+bool			check_flags(int ac, char **av);
 
 /*package.c*/
-bool	check_ip(struct sockaddr_in *ip_addr, char *address, struct icmp *head);
+bool			check_ip(struct sockaddr_in *ip_addr, char *address);
+bool			loop_pkg(int socket, struct sockaddr_in *dest, size_t len, char *pkg);
+void			create_icmp(struct icmp *icmp, int seq);
 
 /*utils.c*/
-void	ft_free(void *ptr1, void *ptr2, int fd);
-long	get_time(void);
-int		init_socket(void);
-void	init_signal(void);
+void			print_log(struct timeval *time);
+struct timeval	get_time(void);
+int				init_socket(void);
+bool			init_signal(void);
+
+/*utils.c*/
+void			ft_free(int fd);
 
 #endif

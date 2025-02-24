@@ -6,37 +6,33 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/23 13:50:38 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:18:37 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
-void	ft_free(void *ptr1, void *ptr2, int fd)
+void	print_log(struct timeval *time)
 {
-	// if (ptr1 != NULL)
-	// 	free(ptr1);
-	// if (ptr2 != NULL)	
-	// 	free(ptr2);
-	(void)ptr1;
-	(void)ptr2;
-	if (fd)
-		close(fd);
+	double	res;
+
+	res = (time[1].tv_sec - time[0].tv_sec) * 1000.0 + (time[1].tv_usec - time[0].tv_usec) / 1000.0;
+	printf("%d bytes from truc: icmp_seq=0 ttl=64 time=%.3f ms\n", PACKET_SIZE, res);
 }
 
-long	get_time(void)
+struct timeval	get_time(void)
 {
-	struct timeval	end;
+	struct timeval	time;
 
-	gettimeofday(&end, NULL);
-	return ((end.tv_sec * 1000) + (end.tv_usec / 1000));
+	gettimeofday(&time, NULL);
+	return (time);
 }
 
 int	init_socket(void)
 {
 	int	socketfd;
 
-	socketfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP);
+	socketfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (socketfd < 0)
 	{
 		perror("Socket error");
@@ -49,14 +45,14 @@ void	stop_ping(int signum)
 {
 	(void)signum;
 	g_stop = false;
-	printf("salut\n");
 }
 
-void	init_signal(void)
+bool	init_signal(void)
 {
 	if (signal(SIGINT, stop_ping) == SIG_ERR)
 	{
-		perror("minishell");
-		exit(1);
+		perror("ft_ping");
+		return (true);
 	}
+	return (false);
 }
