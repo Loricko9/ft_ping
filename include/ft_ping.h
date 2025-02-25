@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/24 17:17:10 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:24:49 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ bool			loop_pkg(int socket, struct sockaddr_in *dest, size_t len, char *pkg);
 void			create_icmp(struct icmp *icmp, int seq);
 
 /*utils.c*/
-void			print_log(struct timeval *time);
-struct timeval	get_time(void);
+void			print_log(struct timeval *time, struct icmp *icmp, struct sockaddr_in *dest);
+void			print_stat(int *i, struct sockaddr_in *dest);
 int				init_socket(void);
 bool			init_signal(void);
 
-/*utils.c*/
+/*utils2.c*/
 void			ft_free(int fd);
+struct timeval	get_time(void);
 
 #endif

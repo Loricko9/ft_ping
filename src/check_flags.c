@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 10:25:46 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/21 14:33:29 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:57:43 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_help(void)
 {
-	printf("Usage: ping [OPTION...] HOST ...\n");
+	printf("Usage: ft_ping [OPTION...] HOST ...\n");
 	printf("Send ICMP ECHO_REQUEST packets to network hosts.\n\n");
 	printf("Options valid for all request types:\n\n");
 	printf("-v, --verbose              verbose output\n");
@@ -26,10 +26,10 @@ void	print_help(void)
 void	print_err_flag(char *err, bool type)
 {
 	if (type)
-	printf("ping: invalid option -- '%c'\n", err[0]);
+	printf("ft_ping: invalid option -- '%c'\n", err[0]);
 	else
-		printf("ping: invalid option -- '%s'\n", err);
-	printf("Try 'ping --help' or 'ping --usage' for more information.\n");
+		printf("ft_ping: invalid option -- '%s'\n", err);
+	printf("Try 'ft_ping --help' or 'ft_ping --usage' for more information.\n");
 	exit(64);
 }
 
