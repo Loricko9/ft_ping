@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/25 11:47:48 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:52:53 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	start_ping(char *host, int socketfd)
 	struct icmp			pkg_icmp;
 	char				pkg[PACKET_SIZE];
 	int					i[2];
-
+	
 	if (check_ip(&dest_ip, host))
 		return (ft_free(socketfd));
+	print_start(host, &dest_ip);
 	if (init_signal())
 		return (ft_free(socketfd));
 	i[0] = 0;
@@ -56,7 +57,6 @@ int main(int ac, char **av)
 	while (++i < ac)
 	{
 		g_stop = true;
-		printf("FT_PING %s (ip): 56 data bytes\n", av[i]);
 		if (av[i][0] != '-')
 			start_ping(av[i], init_socket());
 	}

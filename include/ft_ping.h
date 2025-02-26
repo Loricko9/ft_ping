@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/25 11:24:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:52:36 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <signal.h>
+# include <netdb.h>
 # include <sys/socket.h>
 # include <sys/types.h>
 # include <sys/time.h>
@@ -44,6 +45,7 @@ int				init_socket(void);
 bool			init_signal(void);
 
 /*utils2.c*/
+void			print_start(char *address, struct sockaddr_in *dest_ip);
 void			ft_free(int fd);
 struct timeval	get_time(void);
 
