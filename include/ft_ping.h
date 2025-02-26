@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 14:52:36 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:41:05 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/time.h>
 # include <arpa/inet.h>
 # include <netinet/ip_icmp.h>
+# include <netinet/ip.h>
 
 extern bool	g_stop;
 
@@ -39,7 +40,7 @@ bool			loop_pkg(int socket, struct sockaddr_in *dest, size_t len, char *pkg);
 void			create_icmp(struct icmp *icmp, int seq);
 
 /*utils.c*/
-void			print_log(struct timeval *time, struct icmp *icmp, struct sockaddr_in *dest);
+void			print_log(struct timeval *time, struct icmp *icmp, struct sockaddr_in *dest, char *recv_pkg);
 void			print_stat(int *i, struct sockaddr_in *dest);
 int				init_socket(void);
 bool			init_signal(void);

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 15:13:57 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:40:08 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ bool	loop_pkg(int socket, struct sockaddr_in *dest, size_t len, char *pkg)
 	if (recvfrom(socket, recv_pkg, sizeof(recv_pkg), 0, (struct sockaddr *)&revc_ip, &ip_len) <= 0)
 		return (true);
 	time[1] = get_time();
-	print_log(time, (struct icmp *)pkg, dest);
+	print_log(time, (struct icmp *)pkg, dest, recv_pkg);
 	return (false);
 }
