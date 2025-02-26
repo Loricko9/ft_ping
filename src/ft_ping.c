@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 14:52:53 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:51:41 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	start_ping(char *host, int socketfd)
 	if (check_ip(&dest_ip, host))
 		return (ft_free(socketfd));
 	print_start(host, &dest_ip);
-	if (init_signal())
+	if (init_signal(true))
 		return (ft_free(socketfd));
 	i[0] = 0;
 	i[1] = 0;

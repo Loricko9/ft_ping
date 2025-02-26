@@ -6,34 +6,24 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 15:42:53 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:51:52 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
-void	print_log(struct timeval *time, struct icmp *icmp,
-	struct sockaddr_in *dest, char *recv_pkg)
+void	ft_free(int fd)
 {
-	struct ip	*recv_header;
-	double		res_time;
-	char		host[INET_ADDRSTRLEN];
-
-	recv_header = (struct ip*)recv_pkg;
-	if (inet_ntop(AF_INET, &(dest->sin_addr), host, INET_ADDRSTRLEN) == NULL)
-		perror("inet_ntop");
-	res_time = (time[1].tv_sec - time[0].tv_sec) * 1000.0 + (time[1].tv_usec - time[0].tv_usec) / 1000.0;
-	printf("%d bytes from %s: icmp_seq=%d ttl=%d time=%.3f ms\n", PACKET_SIZE, host, icmp->icmp_seq, recv_header->ip_ttl, res_time);
+	close(fd);
+	init_signal(false);	
 }
 
-void	print_stat(int *i, struct sockaddr_in *dest)
+struct timeval	get_time(void)
 {
-	char		host[INET_ADDRSTRLEN];
+	struct timeval	time;
 
-	if (inet_ntop(AF_INET, &(dest->sin_addr), host, INET_ADDRSTRLEN) == NULL)
-		perror("inet_ntop");
-	printf("--- %s ft_ping statistics ---\n", host);
-	printf("%d packets transmitted, %d packets received, %d%% packet loss\n", i[0], i[0] - i[1], (i[1] / i[0]) * 100);
+	gettimeofday(&time, NULL);
+	return (time);
 }
 
 int	init_socket(void)
@@ -64,12 +54,23 @@ void	stop_ping(int signum)
 	g_stop = false;
 }
 
-bool	init_signal(void)
+bool	init_signal(bool func)
 {
-	if (signal(SIGINT, stop_ping) == SIG_ERR)
+	if (func)
 	{
-		perror("ft_ping");
-		return (true);
+		if (signal(SIGINT, stop_ping) == SIG_ERR)
+		{
+			perror("ft_ping");
+			return (true);
+		}
+	}
+	else
+	{
+		if (signal(SIGINT, SIG_DFL) == SIG_ERR)
+		{
+			perror("ft_ping");
+			return (true);
+		}
 	}
 	return (false);
 }
