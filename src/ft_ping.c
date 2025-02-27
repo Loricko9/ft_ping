@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/27 10:45:58 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:54:36 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_ping(char *host, int socketfd, bool flag)
 	struct sockaddr_in	dest_ip;
 	struct icmp			pkg_icmp;
 	int					i[2];
-	
+
 	if (check_ip(&dest_ip, host))
 		return (ft_free(socketfd));
 	print_start(host, &dest_ip);
@@ -40,14 +40,15 @@ void	start_ping(char *host, int socketfd, bool flag)
 	ft_free(socketfd);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	int 	i;
+	int		i;
 	bool	flag_v;
-	
+
 	if (ac < 2)
 	{
-		printf("ping: missing host operand\nTry \'ping -?\' or \'ping --help\'\n");
+		printf("ping: missing host operand\n");
+		printf("Try \'ping -?\' or \'ping --help\'\n");
 		exit(1);
 	}
 	flag_v = check_flags(ac, av);

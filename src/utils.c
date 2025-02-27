@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 15:51:52 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:59:32 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free(int fd)
 {
 	close(fd);
-	init_signal(false);	
+	init_signal(false);
 }
 
 struct timeval	get_time(void)
@@ -39,7 +39,8 @@ int	init_socket(void)
 	}
 	timeout.tv_sec = 1;
 	timeout.tv_usec = 0;
-	if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0)
+	if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, &timeout,
+			sizeof(timeout)) < 0)
 	{
 		perror("Set socket option");
 		ft_free(socketfd);

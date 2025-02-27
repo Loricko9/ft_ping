@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/27 11:14:49 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:51:08 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ bool			check_flags(int ac, char **av);
 
 /*package.c*/
 bool			check_ip(struct sockaddr_in *ip_addr, char *address);
-bool			loop_pkg(int socket, struct sockaddr_in *dest, struct icmp *pkg_icmp, bool flag);
+bool			loop_pkg(int socket, struct sockaddr_in *dest,
+					struct icmp *pkg_icmp, bool flag);
 void			create_icmp(struct icmp *icmp, int seq);
 
 /*utils.c*/
@@ -46,7 +47,8 @@ void			ft_free(int fd);
 struct timeval	get_time(void);
 
 /*print.c*/
-void			print_log(struct timeval *time, struct icmp *icmp, struct sockaddr_in *dest, char *recv_pkg);
+void			print_log(struct timeval *time, struct icmp *icmp,
+					struct sockaddr_in *dest, char *recv_pkg);
 void			print_start(char *address, struct sockaddr_in *dest_ip);
 void			print_err(struct icmp *icmp, struct sockaddr_in *dest);
 void			print_stat(int *i, struct sockaddr_in *dest);
