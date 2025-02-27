@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 15:51:41 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:45:58 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 bool	g_stop;
 
 /*i[0] => send pkg | i[1] => lost pkg*/
-void	start_ping(char *host, int socketfd)
+void	start_ping(char *host, int socketfd, bool flag)
 {
 	struct sockaddr_in	dest_ip;
 	struct icmp			pkg_icmp;
-	char				pkg[PACKET_SIZE];
 	int					i[2];
 	
 	if (check_ip(&dest_ip, host))
@@ -32,8 +31,7 @@ void	start_ping(char *host, int socketfd)
 	while (g_stop)
 	{
 		create_icmp(&pkg_icmp, i[0]);
-		memcpy(pkg, &pkg_icmp, sizeof(pkg_icmp));
-		if (loop_pkg(socketfd, &dest_ip, sizeof(pkg_icmp), pkg))
+		if (loop_pkg(socketfd, &dest_ip, &pkg_icmp, flag))
 			i[1]++;
 		i[0]++;
 		sleep(1);
@@ -44,21 +42,21 @@ void	start_ping(char *host, int socketfd)
 
 int main(int ac, char **av)
 {
-	int i;
+	int 	i;
+	bool	flag_v;
 	
 	if (ac < 2)
 	{
 		printf("ping: missing host operand\nTry \'ping -?\' or \'ping --help\'\n");
 		exit(1);
 	}
-	if (check_flags(ac, av))
-		printf("coucou");
+	flag_v = check_flags(ac, av);
 	i = 0;
 	while (++i < ac)
 	{
 		g_stop = true;
 		if (av[i][0] != '-')
-			start_ping(av[i], init_socket());
+			start_ping(av[i], init_socket(), flag_v);
 	}
 	return (0);
 }

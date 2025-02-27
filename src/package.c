@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/26 15:40:08 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:46:23 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,26 @@ void	create_icmp(struct icmp *icmp, int seq)
 	icmp->icmp_cksum = checksum(icmp, sizeof(*icmp));
 }
 
-bool	loop_pkg(int socket, struct sockaddr_in *dest, size_t len, char *pkg)
+bool	loop_pkg(int socket, struct sockaddr_in *dest, struct icmp *pkg_icmp, bool flag)
 {
 	struct sockaddr_in	revc_ip;
 	socklen_t			ip_len;
 	char				recv_pkg[PACKET_SIZE];
+	char				send_pkg[PACKET_SIZE];
 	struct timeval		time[2];
 	
+	memcpy(send_pkg, pkg_icmp, sizeof(*pkg_icmp));
 	ip_len = sizeof(revc_ip);
 	time[0] = get_time();
-	if (sendto(socket, pkg, len, 0, (struct sockaddr *)dest, sizeof(*dest)) <= 0)
+	if (sendto(socket, send_pkg, sizeof(*pkg_icmp), 0, (struct sockaddr *)dest, sizeof(*dest)) <= 0)
 		return (perror("ft_ping"), true);
 	if (recvfrom(socket, recv_pkg, sizeof(recv_pkg), 0, (struct sockaddr *)&revc_ip, &ip_len) <= 0)
+	{
+		if (flag)
+			print_err((struct icmp *)send_pkg, dest);
 		return (true);
+	}
 	time[1] = get_time();
-	print_log(time, (struct icmp *)pkg, dest, recv_pkg);
+	print_log(time, (struct icmp *)send_pkg, dest, recv_pkg);
 	return (false);
 }
