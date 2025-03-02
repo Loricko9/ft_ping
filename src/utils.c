@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/27 13:59:32 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/02 18:11:39 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	init_socket(void)
 {
 	struct timeval	timeout;
 	int				socketfd;
+	int				ttl;
 
 	socketfd = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	if (socketfd < 0)
@@ -39,10 +40,12 @@ int	init_socket(void)
 	}
 	timeout.tv_sec = 1;
 	timeout.tv_usec = 0;
+	ttl = TTL_SIZE;
 	if (setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, &timeout,
-			sizeof(timeout)) < 0)
+			sizeof(timeout)) < 0 || setsockopt(socketfd, IPPROTO_IP, IP_TTL,
+			&ttl, sizeof(ttl)) < 0)
 	{
-		perror("Set socket option");
+		perror("Setsocket option");
 		ft_free(socketfd);
 		exit(1);
 	}

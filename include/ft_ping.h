@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/27 13:51:08 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/02 18:40:59 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,23 @@
 # include <arpa/inet.h>
 # include <netinet/ip_icmp.h>
 # include <netinet/ip.h>
+# include <netinet/in.h>
 
 extern bool	g_stop;
 
 # define PACKET_SIZE 64
+# define TTL_SIZE 64
+
+bool			loop_pkg(int socket, struct sockaddr_in *dest,
+					struct icmp *pkg_icmp, bool flag);
 
 /*check_flags.c*/
 bool			check_flags(int ac, char **av);
 
 /*package.c*/
 bool			check_ip(struct sockaddr_in *ip_addr, char *address);
-bool			loop_pkg(int socket, struct sockaddr_in *dest,
-					struct icmp *pkg_icmp, bool flag);
 void			create_icmp(struct icmp *icmp, int seq);
+bool			check_pkg(char *recv_pkg, bool flag);
 
 /*utils.c*/
 bool			init_signal(bool func);
