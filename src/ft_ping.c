@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/02 18:39:34 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:13:11 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ bool	loop_pkg(int socket, struct sockaddr_in *dest, struct icmp *pkg_icmp,
 			print_err((struct icmp *)send_pkg, dest);
 		return (true);
 	}
+	
 	time[1] = get_time();
 	if (check_pkg(recv_pkg, flag))
 		return (true);

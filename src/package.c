@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/02 18:39:51 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:38:59 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ bool	check_pkg(char *recv_pkg, bool flag)
 	char		host[INET_ADDRSTRLEN];
 
 	ip_header = (struct ip *)recv_pkg;
+	
 	icmp_header = (struct icmp *)(recv_pkg + (ip_header->ip_hl << 2));
 	if (inet_ntop(AF_INET, &(ip_header->ip_src), host, INET_ADDRSTRLEN) == NULL)
 		perror("inet_ntop");
-	if (icmp_header->icmp_type == ICMP_ECHOREPLY)
+	if (icmp_header->icmp_type == ICMP_ECHOREPLY
+		|| icmp_header->icmp_type == ICMP_ECHO)
 		return (false);
 	if (icmp_header->icmp_type == ICMP_TIME_EXCEEDED)
 		printf("92 bytes from %s : Times to lives exceeded\n", host);

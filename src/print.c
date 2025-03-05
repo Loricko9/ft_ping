@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:48:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/02 18:08:38 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:38:04 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void	print_log(struct timeval *time, struct icmp *icmp,
 
 void	print_stat(int *i, struct sockaddr_in *dest)
 {
-	char		host[INET_ADDRSTRLEN];
+	char	host[INET_ADDRSTRLEN];
+	double	cal;
 
 	if (inet_ntop(AF_INET, &(dest->sin_addr), host, INET_ADDRSTRLEN) == NULL)
 		perror("inet_ntop");
 	printf("--- %s ft_ping statistics ---\n", host);
-	printf("%d packets transmitted, %d packets received, %d%% packet loss\n",
-		i[0], i[0] - i[1], (i[1] / i[0]) * 100);
+	cal = ((double)i[1] / (double)i[0]) * 100.0;
+	printf("%d packets transmitted, %d packets received, %.1f%% packet loss\n",
+		i[0], i[0] - i[1], cal);
 }
 
 void	print_start(char *address, struct sockaddr_in *dest_ip)
