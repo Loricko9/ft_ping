@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/07 16:52:51 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:04:52 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 extern bool	g_stop;
 
 # define PACKET_SIZE 64
-# define TTL_SIZE 1
+# define TTL_SIZE 64
 
 bool			loop_pkg(int socket, struct sockaddr_in *dest,
 					struct icmp *pkg_icmp, bool flag);
@@ -42,7 +42,8 @@ bool			check_flags(int ac, char **av);
 /*package.c*/
 bool			check_ip(struct sockaddr_in *ip_addr, char *address);
 void			create_icmp(struct icmp *icmp, int seq);
-bool			check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size, struct icmp *icmp_send);
+bool			check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size,
+					struct icmp *icmp_send);
 
 /*utils.c*/
 bool			init_signal(bool func);

@@ -12,15 +12,17 @@
 
 #include "ft_ping.h"
 
-void	print_pkg2(struct iphdr	*ip_header)
+void	print_pkg2(struct iphdr *ip_header)
 {
 	char		ip_src[INET_ADDRSTRLEN];
 	char		ip_dst[INET_ADDRSTRLEN];
 	uint16_t	frag_off;
 
-	if (inet_ntop(AF_INET, &(ip_header->daddr), ip_src, INET_ADDRSTRLEN) == NULL)
+	if (inet_ntop(AF_INET, &(ip_header->daddr), ip_src, INET_ADDRSTRLEN)
+		== NULL)
 		perror("inet_ntop");
-	if (inet_ntop(AF_INET, &(ip_header->saddr), ip_dst, INET_ADDRSTRLEN) == NULL)
+	if (inet_ntop(AF_INET, &(ip_header->saddr), ip_dst, INET_ADDRSTRLEN)
+		== NULL)
 		perror("inet_ntop");
 	printf("\nVr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      ");
 	printf("Dst     Data\n");

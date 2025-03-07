@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/07 15:45:17 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:03:58 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	create_icmp(struct icmp *icmp, int seq)
 	icmp->icmp_cksum = checksum(icmp, sizeof(*icmp));
 }
 
-bool	check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size, struct icmp *icmp_send)
+bool	check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size,
+	struct icmp *icmp_send)
 {
 	struct ip	*ip_header;
 	struct icmp	*icmp_header;
