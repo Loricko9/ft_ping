@@ -6,14 +6,14 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:48:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/05 17:38:04 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:46:03 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
 void	print_log(struct timeval *time, struct icmp *icmp,
-	struct sockaddr_in *dest, char *recv_pkg)
+	struct sockaddr_in *dest, unsigned char *recv_pkg)
 {
 	struct ip	*recv_header;
 	double		res_time;

@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:29:21 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/05 17:38:59 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:45:17 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,13 @@ void	create_icmp(struct icmp *icmp, int seq)
 	icmp->icmp_cksum = checksum(icmp, sizeof(*icmp));
 }
 
-bool	check_pkg(char *recv_pkg, bool flag)
+bool	check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size, struct icmp *icmp_send)
 {
 	struct ip	*ip_header;
 	struct icmp	*icmp_header;
 	char		host[INET_ADDRSTRLEN];
 
 	ip_header = (struct ip *)recv_pkg;
-	
 	icmp_header = (struct icmp *)(recv_pkg + (ip_header->ip_hl << 2));
 	if (inet_ntop(AF_INET, &(ip_header->ip_src), host, INET_ADDRSTRLEN) == NULL)
 		perror("inet_ntop");
@@ -86,8 +85,8 @@ bool	check_pkg(char *recv_pkg, bool flag)
 		|| icmp_header->icmp_type == ICMP_ECHO)
 		return (false);
 	if (icmp_header->icmp_type == ICMP_TIME_EXCEEDED)
-		printf("92 bytes from %s : Times to lives exceeded\n", host);
+		printf("%ld bytes from %s : Times to lives exceeded\n", pkg_size, host);
 	if (flag)
-		printf("coucou\n");
+		print_pkg(recv_pkg, icmp_send);
 	return (true);
 }

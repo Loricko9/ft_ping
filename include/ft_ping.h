@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/02 18:40:59 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:52:51 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 extern bool	g_stop;
 
 # define PACKET_SIZE 64
-# define TTL_SIZE 64
+# define TTL_SIZE 1
 
 bool			loop_pkg(int socket, struct sockaddr_in *dest,
 					struct icmp *pkg_icmp, bool flag);
@@ -42,7 +42,7 @@ bool			check_flags(int ac, char **av);
 /*package.c*/
 bool			check_ip(struct sockaddr_in *ip_addr, char *address);
 void			create_icmp(struct icmp *icmp, int seq);
-bool			check_pkg(char *recv_pkg, bool flag);
+bool			check_pkg(unsigned char *recv_pkg, bool flag, size_t pkg_size, struct icmp *icmp_send);
 
 /*utils.c*/
 bool			init_signal(bool func);
@@ -52,9 +52,12 @@ struct timeval	get_time(void);
 
 /*print.c*/
 void			print_log(struct timeval *time, struct icmp *icmp,
-					struct sockaddr_in *dest, char *recv_pkg);
+					struct sockaddr_in *dest, unsigned char *recv_pkg);
 void			print_start(char *address, struct sockaddr_in *dest_ip);
 void			print_err(struct icmp *icmp, struct sockaddr_in *dest);
 void			print_stat(int *i, struct sockaddr_in *dest);
+
+/*print_pkg.c*/
+void			print_pkg(unsigned char *recv_pkg, struct icmp *icmp);
 
 #endif

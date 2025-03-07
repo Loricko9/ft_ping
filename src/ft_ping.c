@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:54:15 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/05 17:13:11 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:45:55 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,26 @@ bool	loop_pkg(int socket, struct sockaddr_in *dest, struct icmp *pkg_icmp,
 		bool flag)
 {
 	struct sockaddr_in	revc_ip;
-	socklen_t			ip_len;
-	char				recv_pkg[PACKET_SIZE + sizeof(struct ip)];
-	char				send_pkg[PACKET_SIZE];
+	socklen_t			pkg_len;
+	unsigned char		recv_pkg[PACKET_SIZE + sizeof(struct ip)];
+	unsigned char		send_pkg[PACKET_SIZE];
 	struct timeval		time[2];
 
 	memcpy(send_pkg, pkg_icmp, sizeof(*pkg_icmp));
-	ip_len = sizeof(revc_ip);
+	pkg_len = sizeof(revc_ip);
 	time[0] = get_time();
 	if (sendto(socket, send_pkg, sizeof(*pkg_icmp), 0,
 			(struct sockaddr *)dest, sizeof(*dest)) <= 0)
 		return (perror("ft_ping"), true);
 	if (recvfrom(socket, recv_pkg, sizeof(recv_pkg), 0,
-			(struct sockaddr *)&revc_ip, &ip_len) <= 0)
+			(struct sockaddr *)&revc_ip, &pkg_len) <= 0)
 	{
 		if (flag)
 			print_err((struct icmp *)send_pkg, dest);
 		return (true);
 	}
-	
 	time[1] = get_time();
-	if (check_pkg(recv_pkg, flag))
+	if (check_pkg(recv_pkg, flag, sizeof(recv_pkg), pkg_icmp))
 		return (true);
 	print_log(time, (struct icmp *)send_pkg, dest, recv_pkg);
 	return (false);
