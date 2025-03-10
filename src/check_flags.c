@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 10:25:46 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/02/27 13:53:23 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/10 09:41:51 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_err_flag(char *err, bool type)
 		printf("ft_ping: invalid option -- '%c'\n", err[0]);
 	else
 		printf("ft_ping: invalid option -- '%s'\n", err);
-	printf("Try 'ft_ping --help' or 'ft_ping --usage' for more information.\n");
+	printf("Try 'ft_ping --help' for more information.\n");
 	exit(64);
 }
 
