@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/10 11:08:37 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:16:42 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free(int fd, t_lst *lst)
 {
 	t_lst	*next;
 	t_lst	*act;
-	
+
 	close(fd);
 	init_signal(false);
 	act = lst;

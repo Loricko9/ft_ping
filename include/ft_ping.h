@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 13:55:27 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/10 11:11:57 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:20:45 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <string.h>
 # include <signal.h>
 # include <netdb.h>
-# include <float.h>
 # include <sys/socket.h>
 # include <sys/types.h>
 # include <sys/time.h>
@@ -38,16 +37,15 @@ typedef struct s_pkg_info
 {
 	struct sockaddr_in	dest_ip;
 	struct icmp			icmp;
-} t_pkg_info;
+}	t_pkg_info;
 
 typedef struct s_lst
 {
 	double			time;
 	struct s_lst	*next;
-} t_lst;
+}	t_lst;
 
-bool			loop_pkg(int socket, t_pkg_info *pkg_info, bool flag,
-		t_lst **lst);
+bool			loop_pkg(int socket, t_pkg_info *info, bool flag, t_lst **lst);
 
 /*check_flags.c*/
 bool			check_flags(int ac, char **av);
@@ -66,10 +64,10 @@ struct timeval	get_time(void);
 
 /*utils_lst.c*/
 t_lst			*ft_newlst(struct timeval *time);
-void 			ft_lstaddback(t_lst **lst, t_lst *new);
-double 			get_min(t_lst *lst);
-double 			get_max(t_lst *lst);
-double 			get_avrg(t_lst *lst);
+void			ft_lstaddback(t_lst **lst, t_lst *new);
+double			get_min(t_lst *lst);
+double			get_max(t_lst *lst);
+double			get_avrg(t_lst *lst);
 
 /*print.c*/
 void			print_log(struct timeval *time, struct icmp *icmp,

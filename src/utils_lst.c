@@ -15,13 +15,13 @@
 t_lst	*ft_newlst(struct timeval *time)
 {
 	t_lst	*new;
-	double			res_time;
+	double	res_time;
 
 	new = malloc(sizeof(t_lst));
 	if (!new)
 		return (NULL);
 	res_time = (time[1].tv_sec - time[0].tv_sec) * 1000.0 + (time[1].tv_usec
-		- time[0].tv_usec) / 1000.0;
+			- time[0].tv_usec) / 1000.0;
 	new->time = res_time;
 	new->next = NULL;
 	return (new);
@@ -46,7 +46,7 @@ double	get_min(t_lst *lst)
 {
 	double	min;
 
-	min = DBL_MAX;
+	min = 1.7976931348623157e+308;
 	while (lst)
 	{
 		if (lst->time < min)
