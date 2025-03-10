@@ -6,7 +6,7 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 16:48:14 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/10 11:09:34 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:35:07 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ void	print_stat(int *i, struct sockaddr_in *dest, t_lst *lst)
 	cal = ((double)i[1] / (double)i[0]) * 100.0;
 	printf("%d packets transmitted, %d packets received, %.1f%% packet loss\n",
 		i[0], i[0] - i[1], cal);
-	printf("round-trip min/avg/max = %.3f/%.3f/%.3f ms\n", get_min(lst),
-		get_avrg(lst), get_max(lst));
+	if (lst)
+		printf("round-trip min/avg/max = %.3f/%.3f/%.3f ms\n", get_min(lst),
+			get_avrg(lst), get_max(lst));
 }
 
 void	print_start(char *address, struct sockaddr_in *dest_ip)
