@@ -6,16 +6,26 @@
 /*   By: lle-saul <lle-saul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 16:11:03 by lle-saul          #+#    #+#             */
-/*   Updated: 2025/03/05 17:23:04 by lle-saul         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:08:37 by lle-saul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ping.h"
 
-void	ft_free(int fd)
+void	ft_free(int fd, t_lst *lst)
 {
+	t_lst	*next;
+	t_lst	*act;
+	
 	close(fd);
 	init_signal(false);
+	act = lst;
+	while (act)
+	{
+		next = act->next;
+		free(act);
+		act = next;
+	}
 }
 
 struct timeval	get_time(void)
@@ -46,7 +56,7 @@ int	init_socket(void)
 			&ttl, sizeof(ttl)) < 0)
 	{
 		perror("Setsocket option");
-		ft_free(socketfd);
+		ft_free(socketfd, NULL);
 		exit(1);
 	}
 	return (socketfd);
