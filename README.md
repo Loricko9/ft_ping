@@ -2,6 +2,8 @@
 
 [![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
 
+$$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
+
 ## The goal
 
 Reproduce the simple `ping` (inetutils-2.0) command with socket

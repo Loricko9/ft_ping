@@ -1,6 +1,8 @@
 # Ft_ping
 
-[![fr](https://img.shields.io/badge/Langue-fr-blue)](README.fr.md)
+[![en](https://img.shields.io/badge/Language-en-red)](README.md)
+
+$$\color{darkgreen}{{\Huge \mathbf {100/100 ✅}}}$$
 
 ## The goal
 
